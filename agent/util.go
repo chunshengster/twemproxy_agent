@@ -1,1 +1,3 @@
 package agent
+
+func Debug()
