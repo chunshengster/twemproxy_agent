@@ -1,0 +1,8 @@
+alpha:
+  a: 127.0.0.1:22121
+  b: fnv1a_64
+  c: ketama
+  d:
+   - abc ffff
+   - bbc eeee
+

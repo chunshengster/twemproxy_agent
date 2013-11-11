@@ -2,9 +2,15 @@
 package main
 
 import (
-	"fmt"
+	"agent"
 )
 
 func main() {
-	fmt.Println("Hello World!")
+	agent.DebugPrint("hello world")
+	//re := agent.Run("./agent.conf")
+	//re := agent.ParseYamla("./agent.conf")
+	ai := agent.NewAgent("./agent.conf")
+	//fmt.Println(ai)
+	ai.Run()
+
 }
