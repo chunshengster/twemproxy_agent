@@ -103,6 +103,8 @@ func (twi *TwemproxyInstance) GetTWCFG() bool {
 			DebugPrint(re)
 		} else {
 			//FIXME: 如果配置文件已经存在，则需要先进行配置文件内容对比，如果文件内容一致，则跳过；否则，用新的配置对旧配置进行替换，并reload twemproxy
+			// 此处逻辑需要清除，对比操作在 WriteConf 方法中进行实现
+			isSame := FileCompare(twi.TwCFGFile, "abcddd")
 			DebugPrint("Need file compare and reload twemproxy")
 		}
 	}

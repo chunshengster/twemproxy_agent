@@ -3,6 +3,7 @@ package agent
 import (
 	"errors"
 	"github.com/mreiferson/go-httpclient"
+	"hash/crc32"
 	"io/ioutil"
 	"launchpad.net/goyaml"
 	"log"
@@ -164,12 +165,37 @@ func ExecCommand(cmdString string, arg ...string) (out []byte, err error) {
 	return out, nil
 }
 
-func FileCompire(f1, f2 string) bool {
-	return false
+func FileCompare(f1, f2 string) bool {
+	s1, err := GenerateFileHash(f1)
+	if err != nil {
+		return false
+	}
+	s2, err := GenerateFileHash(f2)
+	if err != nil {
+		return false
+	}
+	if s1 == s2 {
+		return true
+	} else {
+		return false
+	}
 }
 
-func GenerateFileHash() {
-	return
+func GenerateFileHash(f string) (uint32, bool) {
+	s, err := ioutil.ReadFile()
+	if err != nil {
+
+		return nil, err
+	}
+	h := crc32.NewIEEE()
+	l, err := h.Write(s)
+	if err != nil {
+		return nil, err
+	}
+	if l < 1 {
+		return nil, errors.New("file length is too short")
+	}
+	return h.Sum32(), nil
 }
 
 func DebugPrint(i ...interface{}) {
